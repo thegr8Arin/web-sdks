@@ -1,13 +1,57 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" href="./favicon.ico" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Socstream</title>
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.jsx"></script>
-  </body>
+<head>
+ <meta charset="UTF-8" /><link rel="icon" href="./favicon.ico" /><meta name="viewport" content="width=device-width, initial-scale=1.0" /><title>Socstream</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+    .container {
+      text-align: center;
+    }
+    textarea {
+      width: 300px;
+      height: 100px;
+      margin-bottom: 10px;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+<div id="root"></div><script type="module" src="/src/main.jsx"></script>
+  <div class="container">
+    <h2>Enter a Code</h2>
+    <textarea id="codeInput" placeholder="Enter your code here..."></textarea><br>
+    <button onclick="redirectToCode()">Go to Code</button>
+  </div>
+
+  <script>
+    function redirectToCode() {
+      // Get the code entered by the user
+      const code = document.getElementById('codeInput').value.trim();
+      
+      // Check if the input is not empty
+      if (code) {
+        // Construct the URL with the entered code
+        const url = 'https://test.com/' + code;
+        
+        // Redirect to the new URL
+        window.location.href = url;
+      } else {
+        // Alert user if the code is empty
+        alert('Please enter a code.');
+      }
+    }
+  </script>
+
+</body>
 </html>
