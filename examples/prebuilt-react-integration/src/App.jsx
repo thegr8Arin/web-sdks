@@ -1,38 +1,13 @@
-import {
-  selectIsConnectedToRoom,
-  useHMSActions,
-  useHMSStore,
-} from "@100mslive/react-sdk";
-import "./App.css";
-import JoinForm from ".JoinForm";
-import { useEffect } from "react";
-import Conference from ".Conference";
-import Footer from "./Footer";
+import { HMSPrebuilt, Diagnostics } from '@100mslive/roomkit-react';
+import { getRoomCodeFromUrl } from './utils';
 
-function App() {
-  const isConnected = useHMSStore(selectIsConnectedToRoom);
-  const hmsActions = useHMSActions();
+export default function App() {
+  const roomCode = getRoomCodeFromUrl();
+  const isDiagnostics = location.pathname.startsWith('/diagnostics');
 
-  useEffect(() => {
-    window.onunload = () => {
-      if (isConnected) {
-        hmsActions.leave();
-      }
-    };
-  }, [hmsActions, isConnected]);
+  if (isDiagnostics) {
+    return <Diagnostics />;
+  }
 
-  return (
-    <div className="App">
-      {isConnected ? (
-        <>
-          <Conference />
-          <Footer />
-        </>
-      ) : (
-        <JoinForm />
-      )}
-    </div>
-  );
+  return <HMSPrebuilt roomCode={roomCode} />;
 }
-
-export default App;
